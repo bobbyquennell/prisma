@@ -24,13 +24,15 @@ async function main() {
     _count: true,
   })
   const count = await prisma.user.count()
+
   console.log({
+    //@ts-ignore
+    engineType: prisma._clientEngineType,
     aggregate,
     groupBy,
     count,
     findMany,
   })
-
 }
 
 main().finally(() => {
