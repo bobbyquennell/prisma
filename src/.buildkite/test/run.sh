@@ -52,8 +52,7 @@ fi
 
 # Only for job 2 = Node-API
 if [ "$BUILDKITE_PARALLEL_JOB" = "2" ]; then
-  export PRISMA_FORCE_NAPI=true
-  export PRISMA_CLIENT_ENGINE_TYPE='node-api'
+  export PRISMA_CLIENT_ENGINE_TYPE='binary' # Default is 'node-api' 
 
 fi
 
