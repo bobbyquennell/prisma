@@ -45,15 +45,21 @@ npm i --silent -g pnpm@6 --unsafe-perm
 
 retry 6 pnpm i --no-prefer-frozen-lockfile
 
-# Only run lint for job 0
+# JOB 0 - Tests all with the default configuration
+# JOB 1 - Tests all with:
+#   PRISMA_CLIENT_ENGINE_TYPE="binary" // Default is node-api
+#   PRISMA_CLI_QUERY_ENGINE_TYPE="binary" // Default is node-api
+
+# JOB 0
 if [ "$BUILDKITE_PARALLEL_JOB" = "0" ]; then
-    pnpm run lint
+  # Only run lint for job 0
+  pnpm run lint
 fi
 
-# Only for job 2 = Node-API
-if [ "$BUILDKITE_PARALLEL_JOB" = "2" ]; then
+# JOB 1
+if [ "$BUILDKITE_PARALLEL_JOB" = "1" ]; then
   export PRISMA_CLIENT_ENGINE_TYPE='binary' # Default is 'node-api' 
-
+  export PRISMA_CLI_QUERY_ENGINE_TYPE='binary' # Default is 'node-api' 
 fi
 
 node -v
